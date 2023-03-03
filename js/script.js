@@ -1,18 +1,15 @@
 // dz1
-
-
     let min = 0;
     let max = 100;
     while (true) {
         middl = Math.floor((min + max) / 2);
         let result = prompt("Число >, < або = "+ middl);
-
         if (result === ">") {
             min = middl + 1;
         } else if (result === "<") {
             max = middl - 1;
         } else if (result === "=") {
-            alert("Число" + middl);
+            alert("Число " + middl);
             break;
         } else {
             alert("Error01");
@@ -24,30 +21,28 @@ for (let i = 2; i <= 9; i++) {
         console.log(i + " помножити на " + j + " = "+ (i * j))
     }
 }
-
-
 // dz3
-//
-// перевірка дня
-let data = prompt("Введіть дату, через оператор (-) ");
-let [day, month, year] = data.split('-');
-day = +(day);
-month = +(month);
-year = +(year);
-let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-if (month > 12 || month < 1) {
-    alert("Невірний місяць");
+let infoFromUser = prompt("Введіть свою дату, використовуючи крапку, наприклад 18.01.1888");
 
-let Day1 = "Понеділок";
-let Day2 = "Вівторок";
-let Day3 = "Середа";
-let Day4 = "Четвер";
-let Day5 = "П'ятниця";
-let Day6 = "Субота";
-let Day7 = "Неділя";
-let Day = 0;
-let consoleInfo = prompt("");
-// while (consoleInfo) {
-//     Day++;
-//     consoleInfo = prompt(ConsoleInfo);
-// }
+let dateParts = infoFromUser.split(".");
+let day = parseInt(dateParts[0]);
+let month = parseInt(dateParts[1]) - 1;
+let year = parseInt(dateParts[2]);
+let nextDate = new Date(year, month, day + 1);
+
+// перевірка місяця
+if (nextDate.getMonth() !== month) {
+    nextDate = new Date(year, month + 1, 1);
+}
+
+// перевірка року та високосного року
+while (nextDate.getFullYear() !== year || (nextDate.getFullYear() % 4 !== 0 || (nextDate.getFullYear() % 100 === 0 && nextDate.getFullYear() % 400 !== 0))) {
+    nextDate = new Date(nextDate.getFullYear() + 1, 0, 1);
+}
+
+let nextDay = nextDate.getDate();
+let nextMonth = nextDate.getMonth() + 1;
+let nextYear = nextDate.getFullYear();
+alert(`Наступна дата: ${nextDay}-${nextMonth}-${nextYear}`);
+console.log(`Наступна дата: ${nextDay}-${nextMonth}-${nextYear}`);
+
