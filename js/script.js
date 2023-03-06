@@ -22,7 +22,7 @@ for (let i = 2; i <= 9; i++) {
     }
 }
 // dz3
-let infoFromUser = prompt("Введіть свою дату, використовуючи крапку, наприклад 18.01.1888");
+let infoFromUser = prompt("Введіть свою дату, використовуючи крапку  , наприклад 18.01.1888");
 
 let dateParts = infoFromUser.split(".");
 let day = parseInt(dateParts[0]);
@@ -30,6 +30,15 @@ let month = parseInt(dateParts[1]) - 1;
 let year = parseInt(dateParts[2]);
 let nextDate = new Date(year, month, day + 1);
 
+if (isNaN(day) || isNaN(month) || isNaN(year)) {
+    alert("Некоректний формат введеної дати!");
+} else if (month < 0 || month > 11) {
+    alert("Номер місяця має бути від 1 до 12!");
+} else if (day < 1 || day > new Date(year, month + 1, 0).getDate()) {
+    alert("Кількість днів у місяці введено невірно!");
+} else {
+    let nextDate = new Date(year, month, day + 1);
+}
 // перевірка місяця
 if (nextDate.getMonth() !== month) {
     nextDate = new Date(year, month + 1, 1);
@@ -53,4 +62,3 @@ let nextMonth = nextDate.getMonth() + 1;
 let nextYear = nextDate.getFullYear();
 alert(`Наступна дата: ${nextDay}-${nextMonth}-${nextYear}`);
 console.log(`Наступна дата: ${nextDay}-${nextMonth}-${nextYear}`);
-
