@@ -36,8 +36,16 @@ if (nextDate.getMonth() !== month) {
 }
 
 // перевірка року та високосного року
-while (nextDate.getFullYear() !== year || (nextDate.getFullYear() % 4 !== 0 || (nextDate.getFullYear() % 100 === 0 && nextDate.getFullYear() % 400 !== 0))) {
-    nextDate = new Date(nextDate.getFullYear() + 1, 0, 1);
+while (true) {
+    let isLeapYear = (nextDate.getFullYear() % 4 === 0 && nextDate.getFullYear() % 100 !== 0) || (nextDate.getFullYear() % 400 === 0);
+    if (isLeapYear && nextDate.getMonth() === 1 && nextDate.getDate() === 29) {
+        break;
+    } else if (!isLeapYear && nextDate.getMonth() === 1 && nextDate.getDate() === 28) {
+        break;
+    } else if (nextDate.getMonth() !== 1) {
+        break;
+    }
+    nextDate.setDate(nextDate.getDate() + 1);
 }
 
 let nextDay = nextDate.getDate();
